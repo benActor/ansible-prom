@@ -1,0 +1,7 @@
+ansible_host: <ip-addr>
+ansible_ssh_user: xxxxxx
+prometheus-config-dir: ""
+ops-dir: ""
+project-dir: ""
+compose-file: ""
+git-repo-path: ""

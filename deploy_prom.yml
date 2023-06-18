@@ -1,0 +1,46 @@
+- hosts: monitor
+  become: yes
+  tasks:
+    - name: install Docker
+      include_tasks: tasks/install-docker.yml
+
+    - intall: docker compose
+      include_tasks: tasks/install-compose.yml
+    
+    - name: Create prom  & ops directories
+      file: 
+        src: "{{ item }}"
+        state: directory
+      with_items: 
+        - "{{ prometheus-config-dir }}"
+        - "{{ ops-dir }}"
+      tags: 
+        - install
+        
+    - name: Getting compose template
+      template:
+        src: templates/docker-compose.j2
+        dest: "{{ ops-dir }}{{ project-dir }}{{ compose-file }}"
+      tags:
+        - always
+
+    - name: Getting prom-config from git
+      git: 
+        repo: "{{ git-repo-path }}"
+        dest: "{{ ops-dir }}"
+      tags:
+        - always
+
+    - name: Move prometheus config
+      command: mv "{{ ops-dir }}{{ project-dir }}{{ config-path }}" "{{ prometheus-config-dir }}"
+      tags:
+        - always
+
+    - name: Creata or update stack
+      include_tasks: tasks/run-compose.yml
+    
+          
+
+        
+
+

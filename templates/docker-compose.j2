@@ -1,0 +1,18 @@
+version: '3.7'
+
+volumes:
+    prometheus_data: {}
+
+services:
+  prometheus:
+    image: {{ prometheus-image }}
+    volumes:
+      - {{ prometheu-config-dir }}: /etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - {{ exposed-prom-port }}:9090
