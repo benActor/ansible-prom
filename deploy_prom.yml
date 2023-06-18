@@ -24,15 +24,8 @@
       tags:
         - always
 
-    - name: Getting prom-config from git
-      git: 
-        repo: "{{ git-repo-path }}"
-        dest: "{{ ops-dir }}"
-      tags:
-        - always
-
     - name: Move prometheus config
-      command: mv "{{ ops-dir }}{{ project-dir }}{{ config-path }}" "{{ prometheus-config-dir }}"
+      copy: files/prometheus.yml "{{ prometheus-config-dir }}"
       tags:
         - always
 
