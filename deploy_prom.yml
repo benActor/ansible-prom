@@ -25,7 +25,9 @@
         - always
 
     - name: Move prometheus config
-      copy: files/prometheus.yml "{{ prometheus-config-dir }}"
+      copy: 
+        src: files/prometheus.yml 
+        dest: "{{ prometheus-config-dir }}"
       tags:
         - always
 
