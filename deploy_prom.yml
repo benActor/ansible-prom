@@ -1,41 +1,39 @@
 - hosts: monitor
   become: yes
   tasks:
-    - name: Gather the package facts
+    - name: Gather package facts
       package_facts:
         manager: auto
-    
-    - name: Debug
-      debug: 
-        msg: "{{ ansible_facts.packages }}"
          
     - name: install Docker
-      include_tasks: tasks/install-docker.yml
+      include_tasks:
+        file: tasks/install-docker.yml
 
-    - intall: docker compose
-      include_tasks: tasks/install-compose.yml
+    - name: Install docker compose
+      include_tasks: 
+        file: tasks/install-compose.yml
     
     - name: Create prom  & ops directories
       file: 
         src: "{{ item }}"
         state: directory
       with_items: 
-        - "{{ prometheus-config-dir }}"
-        - "{{ ops-dir }}"
+        - "{{ prometheus_config_dir }}"
+        - "{{ ops_dir }}"
       tags: 
         - install
         
     - name: Getting compose template
       template:
         src: templates/docker-compose.j2
-        dest: "{{ ops-dir }}{{ project-dir }}{{ compose-file }}"
+        dest: "{{ ops_dir }}{{ project_dir }}{{ compose_file }}"
       tags:
         - always
 
     - name: upload prometheus config
       copy: 
         src: files/prometheus.yml 
-        dest: "{{ prometheus-config-dir }}"
+        dest: "{{ prometheus_config_dir }}"
       tags:
         - always
 
