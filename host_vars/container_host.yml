@@ -1,7 +1,9 @@
 ansible_host: <ip-addr>
 ansible_ssh_user: xxxxxx
-ops-dir: /opt/devops/
-prometheus-config-dir: "{{ ops-dir }}prometheus"
-project-dir: ansible-prom
-compose-file: docker-compose.yml
-exposed-prom-port: 9055
+ops_dir: /opt/devops/
+prometheus_config_dir: "{{ ops_dir }}prometheus/"
+prometheus_image: prom/prometheus
+project_dir: ansible-prom/
+compose_file: docker-compose.yml
+exposed_prom_port: 9055
+
