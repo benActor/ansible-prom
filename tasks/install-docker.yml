@@ -1,5 +1,5 @@
 - debug:
-  msg: "Linux Distribution is {{ ansible_facts['ansible_distribution'] }}"
+    msg: "Linux Distribution is {{ ansible_facts['ansible_distribution'] }}"
 
 - name: Install Docker
   block:
