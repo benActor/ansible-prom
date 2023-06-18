@@ -1,18 +1,18 @@
 - name: update Docker Compose stack
   community.docker.docker_compose:
-    project_src: {{ ops-dir }}{{ project-dir }}
+    project_src: "{{ ops_dir }}{{ project_dir }}"
     restarted: true
     files:
-    - {{ compose-file }}
+    - "{{ compose_file }}"
   tags:
     - update
 
 - name:
   community.docker.docker_compose:
-    project_src: {{ ops-dir }}{{ project-dir }}
+    project_src: "{{ ops_dir }}{{ project_dir }}"
     present: true
     files:
-    - {{ compose-file }}
+    - "{{ compose_file }}"
   tags:
     - install
 
