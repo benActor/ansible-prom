@@ -15,11 +15,12 @@
     
     - name: Create prom  & ops directories
       file: 
-        src: "{{ item }}"
+        path: "{{ item }}"
         state: directory
       with_items: 
         - "{{ prometheus_config_dir }}"
         - "{{ ops_dir }}"
+        - "{{ ops_dir }}{{ project_dir }}"
       tags: 
         - install
         
