@@ -1,6 +1,14 @@
 - hosts: monitor
   become: yes
   tasks:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+    
+    - name: Debug
+      debug: 
+        msg: "{{ ansible_facts.packages }}"
+         
     - name: install Docker
       include_tasks: tasks/install-docker.yml
 
