@@ -1,18 +1,15 @@
-- name: update Docker Compose stack
+- name: Stop Docker Compose stack
   community.docker.docker_compose:
     project_src: "{{ ops_dir }}{{ project_dir }}"
-    restarted: true
+    state: absent
     files:
     - "{{ compose_file }}"
-  tags:
-    - update
 
-- name:
+- name: Start Docker Compose stack
   community.docker.docker_compose:
     project_src: "{{ ops_dir }}{{ project_dir }}"
-    present: true
+    state: present
     files:
     - "{{ compose_file }}"
-  tags:
-    - install
+
 
