@@ -7,7 +7,7 @@ services:
   prometheus:
     image: {{ prometheus_image }}
     volumes:
-      - {{ prometheus_config_dir }}: /etc/prometheus/
+      - {{ prometheus_config_dir }}:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
