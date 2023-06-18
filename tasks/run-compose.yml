@@ -1,6 +1,6 @@
 - name: update Docker Compose stack
   community.docker.docker_compose:
-    project_src: {{ ops-dir }}{{ project-repo }}
+    project_src: {{ ops-dir }}{{ project-dir }}
     restarted: true
     files:
     - {{ compose-file }}
@@ -9,7 +9,7 @@
 
 - name:
   community.docker.docker_compose:
-    project_src: {{ ops-dir }}{{ project-repo }}
+    project_src: {{ ops-dir }}{{ project-dir }}
     present: true
     files:
     - {{ compose-file }}
