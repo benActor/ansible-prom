@@ -31,7 +31,7 @@
       tags:
         - always
 
-    - name: Creata or update stack
+    - name: Create or update docker-compose stack
       include_tasks: tasks/run-compose.yml
     
           
