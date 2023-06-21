@@ -6,24 +6,28 @@ compose_file: docker-compose.yml
 
 prometheus:
   image: quay.io/prometheus/prometheus
-  container_name: prometheus_server
+  container_name: prometheus_server_compose
   port: 9055
-  config_dir: "{{ ops_dir }}prometheus_server/etc/prometheus/"
-  data_dir: "{{ ops_dir  }}prometheus_server/prometheus/"
+  #config_dir: "{{ ops_dir }}prometheus_server/etc/prometheus/"
+  #data_dir: "{{ ops_dir  }}prometheus_server/prometheus/"
+  config_dir: "{{ ops_dir }}/prometheus/"
+  data_dir: "{{ ops_dir }}/prometheus_data"
   config_files:
     - prometheus.yml
 
 alertmanager:
-  container_name: alertmanager
+  container_name: alertmanager_compose
   image: quay.io/prometheus/alermanager
-  config_dir: "{{ ops_dir }}alertmanager/etc/alertmanager"
+  #config_dir: "{{ ops_dir }}alertmanager/etc/alertmanager"
+  config_dir: "{{ ops_dir }}/alertmanager/"
   port: 6060
   config_files:
     - alertmanager.yml
 
 grafana: 
-  container_name: grafana_server
+  container_name: grafana_server_compose
   image: grafana/grafana
-  data_dir: "/mnt/docker/grafana_server/var/lib/grafana"
+  #data_dir: "{{ ops_dir }}grafana_server/var/lib/grafana"
+  data_dir: "{{ ops_dir }}/grafana/"
   port: 5656
 
