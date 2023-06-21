@@ -1,6 +1,6 @@
 ansible_host: <ip-addr>
 ansible_ssh_user: xxxxxx
-ops_dir: /mnt/docker/
+ops_dir: /ops/test-devops/
 project_dir: ansible-prom/
 compose_file: docker-compose.yml
 
