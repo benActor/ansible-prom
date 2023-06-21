@@ -20,7 +20,7 @@
       with_items: 
         - "{{ prometheus.config_dir }}"
         - "{{ grafana.data_dir }}"
-        - "{{ alertmanager.config_dir }}"
+        - "{{ alertmanager.data_dir }}"
         - "{{ ops_dir }}"
         - "{{ ops_dir }}{{ project_dir }}"
       tags: 
@@ -39,15 +39,6 @@
         src: "files/{{ item }}" 
         dest: "{{ prometheus.config_dir }}"
       with_items: "{{ prometheus.config_files }}"
-      tags:
-        - install
-        - update
-
-    - name: Upload grafana configuration files
-      copy:
-        src: "files/{{ item }}"
-        dest: "{{ grafana.config_dir }}"
-      with_items: "{{ grafana.config_files}}"
       tags:
         - install
         - update
