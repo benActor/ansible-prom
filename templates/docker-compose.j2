@@ -1,15 +1,12 @@
 version: '3.8'
 
-volumes:
-    prometheus_data: {}
-
 services:
   prometheus:
     container_name: {{ prometheus.container_name }}
     image: {{ prometheus.image }}
     volumes:
       - {{ prometheus.config_dir }}:/etc/prometheus/
-      - prometheus_data:/prometheus
+      - {{ prometheus.data_dir }}:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
