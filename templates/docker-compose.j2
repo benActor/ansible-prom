@@ -39,7 +39,6 @@ services:
       - {{ grafana.port }}:3000
     volumes:
       - {{ grafana.data_dir }}:/var/lib/grafana
-      - ./grafana/provisioning/:/etc/grafana/provisioning/
     user: "472"
     env_file:
       - ./grafana/config.monitoring
