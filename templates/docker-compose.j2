@@ -5,10 +5,10 @@ volumes:
 
 services:
   prometheus:
-    container_name: prometheus
-    image: {{ prometheus_image }}
+    container_name: {{ prometheus.container_name }}
+    image: {{ prometheus.image }}
     volumes:
-      - {{ prometheus_config_dir }}:/etc/prometheus/
+      - {{ prometheus.config_dir }}:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -18,30 +18,30 @@ services:
       - '--web.enable-lifecycle'
       - '--web.enable-admin-api'
     ports:
-      - {{ prometheus_port }}:9090
+      - {{ prometheus.port }}:9090
     restart: unless-stopped
 
   alertmanager:
-    container_name: alertManager
-    image: {{ alert_manager_image }}
+    container_name: alertmanager.container_name
+    image: {{ alertmanager.image }}
     ports:
-      - {{ alert_manager_port }}:9093
+      - {{ alertmanager.port }}:9093
     volumes:
-      - "{{ alert_manager_config_dir }}:/etc/alertmanager/"
+      - "{{ alertmanager.config_dir }}:/etc/alertmanager/"
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
     restart: unless-stopped
 
   grafana:
-    container_name: grafana
-    image: {{ grafana_image }}
+    container_name: {{ grafana.container_name }}
+    image: {{ grafana.image }}
     depends_on:
       - prometheus
     ports:
-      - {{ grafana_port }}:3000
+      - {{ grafana.port }}:3000
     volumes:
-      - {{ grafana_data }}:/var/lib/grafana
+      - {{ grafana.data_dir }}:/var/lib/grafana
       - ./grafana/provisioning/:/etc/grafana/provisioning/
     user: "472"
     env_file:
