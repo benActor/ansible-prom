@@ -13,12 +13,14 @@
       include_tasks: 
         file: tasks/install-compose.yml
     
-    - name: Create prom  & ops directories
+    - name: Create monitoring & ops directories
       file: 
         path: "{{ item }}"
         state: directory
       with_items: 
-        - "{{ prometheus_config_dir }}"
+        - "{{ prometheus.config_dir }}"
+        - "{{ grafana.data_dir }}"
+        - "{{ alertmanager.config_dir }}"
         - "{{ ops_dir }}"
         - "{{ ops_dir }}{{ project_dir }}"
       tags: 
@@ -29,14 +31,35 @@
         src: templates/docker-compose.j2
         dest: "{{ ops_dir }}{{ project_dir }}{{ compose_file }}"
       tags:
-        - always
+        - install
+        - update
 
-    - name: upload prometheus config
+    - name: upload prometheus config files
       copy: 
-        src: files/prometheus.yml 
-        dest: "{{ prometheus_config_dir }}"
+        src: "files/{{ item }}" 
+        dest: "{{ prometheus.config_dir }}"
+      with_items: "{{ prometheus.config_files }}"
       tags:
-        - always
+        - install
+        - update
+
+    - name: Upload grafana configuration files
+      copy:
+        src: "files/{{ item }}"
+        dest: "{{ grafana.config_dir }}"
+      with_items: "{{ grafana.config_files}}"
+      tags:
+        - install
+        - update
+
+    - name: Upload Alertmanager configuration files
+      copy: 
+        src: "files/{{ item }}"
+        dest: "{{ alertmanager.config_dir}}"
+      with_items: "{{ alertmanager.config_files }}"
+      tags:
+        - install
+        - update
 
     - name: Create or update docker-compose stack
       include_tasks: tasks/run-compose.yml
