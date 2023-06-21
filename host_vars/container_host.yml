@@ -1,29 +1,29 @@
 ansible_host: <ip-addr>
 ansible_ssh_user: xxxxxx
-ops_dir: /opt/devops/
+ops_dir: /mnt/docker/
 project_dir: ansible-prom/
 compose_file: docker-compose.yml
 
 prometheus:
-  image: prom/prometheus
-  container_name: ""
+  image: quay.io/prometheus/prometheus
+  container_name: prometheus_server
   port: 9055
-  config_dir: "{{ ops_dir }}prometheus/"
+  config_dir: "{{ ops_dir }}prometheus_server/etc/prometheus/"
+  data_dir: "{{ ops_dir  }}prometheus_server/prometheus/"
   config_files:
     - prometheus.yml
 
 alertmanager:
-  container_name: ""
-  image: ""
+  container_name: alertmanager
+  image: quay.io/prometheus/alermanager
+  config_dir: "{{ ops_dir }}alertmanager/etc/alertmanager"
   port: 6060
   config_files:
     - alertmanager.yml
 
 grafana: 
-  container_name: ""
-  image: ""
-  config_files:
-    - grafana.yml
-  data_dir: ""
+  container_name: grafana_server
+  image: grafana/grafana
+  data_dir: "/mnt/docker/grafana_server/var/lib/grafana"
   port: 5656
 
