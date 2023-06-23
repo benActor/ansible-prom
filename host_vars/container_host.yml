@@ -3,6 +3,7 @@ ansible_ssh_user: xxxxxx
 ops_dir: /opt/test-devops/
 project_dir: ansible-prom/
 compose_file: docker-compose.yml
+compose_url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
 
 prometheus:
   image: quay.io/prometheus/prometheus
