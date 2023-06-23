@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.7'
 
 services:
   prometheus:
@@ -40,6 +40,4 @@ services:
     volumes:
       - {{ grafana.data_dir }}:/var/lib/grafana
     user: "472"
-    env_file:
-      - ./grafana/config.monitoring
     restart: unless-stopped
