@@ -1,15 +1,7 @@
-- name: Stop Docker Compose stack
-  community.docker.docker_compose:
-    project_src: "{{ ops_dir }}{{ project_dir }}"
-    state: absent
-    files:
-    - "{{ compose_file }}"
-
 - name: Start Docker Compose stack
-  community.docker.docker_compose:
-    project_src: "{{ ops_dir }}{{ project_dir }}"
-    state: present
-    files:
-    - "{{ compose_file }}"
+  become: yes
+  shell: "docker-compose -f {{ ops_dir }}/{{ project_dir }}/{{ compose_file }} up"
+  tags:
+    - compose
 
 
