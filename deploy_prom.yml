@@ -20,16 +20,16 @@
       with_items: 
         - "{{ prometheus.config_dir }}"
         - "{{ grafana.data_dir }}"
-        - "{{ alertmanager.data_dir }}"
+        - "{{ alertmanager.config_dir }}"
         - "{{ ops_dir }}"
-        - "{{ ops_dir }}{{ project_dir }}"
+        - "{{ ops_dir }}/{{ project_dir }}"
       tags: 
         - install
         
     - name: Getting compose template
       template:
         src: templates/docker-compose.j2
-        dest: "{{ ops_dir }}{{ project_dir }}{{ compose_file }}"
+        dest: "{{ ops_dir }}/{{ project_dir }}/{{ compose_file }}"
       tags:
         - install
         - update
@@ -54,6 +54,7 @@
 
     - name: Create or update docker-compose stack
       include_tasks: tasks/run-compose.yml
+
     
           
 
