@@ -1,12 +1,12 @@
 ansible_host: <ip-addr>
 ansible_ssh_user: xxxxxx
-ops_dir: /opt/test-devops/
-project_dir: ansible-prom/
+ops_dir: /opt/test-devops
+project_dir: ansible-prom
 compose_file: docker-compose.yml
-compose_url: https://github.com/docker/compose/releases/download/1.21.2/docker-compose-Linux-x86_64
+compose_url: https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
 
 prometheus:
-  image: quay.io/prometheus/prometheus
+  image: prom/prometheus
   container_name: prometheus_server_compose
   port: 9055
   #config_dir: "{{ ops_dir }}prometheus_server/etc/prometheus/"
@@ -18,7 +18,7 @@ prometheus:
 
 alertmanager:
   container_name: alertmanager_compose
-  image: quay.io/prometheus/alermanager
+  image: quay.io/prometheus/alertmanager
   #config_dir: "{{ ops_dir }}alertmanager/etc/alertmanager"
   config_dir: "{{ ops_dir }}/alertmanager/"
   port: 6060
