@@ -15,4 +15,4 @@ Playbook allows some customization of deployed stack with vaiables defined under
 Prometheus and alertmanager configuration files stored under files.
 
 ## Run
-> **ansible-playbook -i inventory deploy_prom.yml**
+> __ansible-playbook -i inventory deploy_prom.yml__
